@@ -20,3 +20,16 @@ def request_token
   end
   session[:request_token]
 end
+
+def find_user
+  @token = @access_token.token
+  @secret = @access_token.secret
+  @username = @access_token.params[:screen_name]
+
+  @user = User.where(oauth_token: @token , oauth_secret: @secret)
+  if @user.any?
+    @user = @user.first
+  else
+    @user = User.create(username: @username, oauth_token: @token, oauth_secret: @secret)
+  end
+end
