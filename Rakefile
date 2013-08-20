@@ -120,12 +120,3 @@ desc 'Start IRB with application environment loaded'
 task "console" do
   exec "irb -r./config/environment"
 end
-
-
-unless ENV['RACK_ENV'] == 'test'
-  require 'rspec/core/rake_task'
-  desc "Run the specs"
-  task :specs do
-    RSpec::Core::RakeTask.new(:spec)
-  end
-end
