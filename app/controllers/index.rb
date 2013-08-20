@@ -25,3 +25,15 @@ get '/auth' do
 
   erb :index 
 end
+
+post '/tweet' do
+  @tweet = params[:tweet]
+  @user = User.where(oauth_token: session[:user_token], oauth_secret: session[:user_secret]).first
+  make_the_tweet
+  redirect '/tweeted'
+end
+
+get '/tweeted' do
+  erb :successful_tweet
+end
+  
